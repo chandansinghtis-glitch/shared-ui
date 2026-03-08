@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
-
+import logo from './../asset/logo.png'
 export default function Layout({ children, user }) {
 
   const [expanded, setExpanded] = useState(true);
@@ -35,6 +35,7 @@ export default function Layout({ children, user }) {
           setOpen={setOpen}
           toggleSidebar={toggleSidebar}
           onLogout={handleLogout}
+          logo={logo}
         />
 
         {/* PAGE CONTENT */}
