@@ -1,17 +1,18 @@
-import Header from "./Header";
 import Sidebar from "./Sidebar";
+import Header from "./Header";
 
-export default function Layout({ children }) {
+export default function Layout({ children, user }) {
+
   return (
-    <div className="flex h-screen">
+    <div className="flex">
 
-      <Sidebar />
+      <Sidebar user={user} />
 
-      <div className="flex flex-col flex-1">
+      <div className="flex-1 ml-[240px]">
 
-        <Header />
+        <Header user={user} />
 
-        <main className="p-6 flex-1 overflow-y-auto">
+        <main className="p-6">
           {children}
         </main>
 
