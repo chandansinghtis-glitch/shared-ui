@@ -1,6 +1,5 @@
 import {
-  ChevronDown,
-  ChartNoAxesCombined
+  ChevronDown
 } from "lucide-react";
 import { Fragment, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -72,6 +71,9 @@ function MenuItems({ isOpen, user }) {
           hasSubmenu &&
           menuItem.submenus.some(sub => isActive(sub.path));
 
+        // ✅ render icon component
+        const Icon = menuItem.icon;
+
         return (
           <div
             key={menuItem.id}
@@ -99,7 +101,8 @@ function MenuItems({ isOpen, user }) {
             >
               <div className="flex items-center gap-2">
 
-                {menuItem.icon}
+                {/* ✅ Icon render fix */}
+                {Icon && <Icon size={18} />}
 
                 <span
                   className={`transition-all duration-200 ${
