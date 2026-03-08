@@ -1,21 +1,22 @@
-import React from "react";
-import Sidebar from "./Sidebar";
 import Header from "./Header";
+import Sidebar from "./Sidebar";
 
-const Layout = ({ children }) => {
+export default function Layout({ children }) {
   return (
-    <div style={{ display: "flex" }}>
+    <div className="flex h-screen">
+
       <Sidebar />
 
-      <div style={{ flex: 1 }}>
+      <div className="flex flex-col flex-1">
+
         <Header />
 
-        <div style={{ padding: "20px" }}>
+        <main className="p-6 flex-1 overflow-y-auto">
           {children}
-        </div>
+        </main>
+
       </div>
+
     </div>
   );
-};
-
-export default Layout;
+}
