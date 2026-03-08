@@ -1,18 +1,44 @@
+import { useState } from "react";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 
 export default function Layout({ children, user }) {
 
+  const [expanded, setExpanded] = useState(true);
+  const [open, setOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setExpanded(!expanded);
+  };
+
+  const handleLogout = () => {
+    window.location.href = "/login";
+  };
+
   return (
-    <div className="flex">
+    <div className="flex min-h-screen">
 
-      <Sidebar user={user} />
+      {/* SIDEBAR */}
+      <Sidebar expanded={expanded} user={user} />
 
-      <div className="flex-1 ml-[240px]">
+      {/* MAIN AREA */}
+      <div
+        className={`flex flex-col flex-1 transition-all duration-300 ${
+          expanded ? "ml-[240px]" : "ml-[70px]"
+        }`}
+      >
 
-        <Header user={user} />
+        {/* HEADER */}
+        <Header
+          user={user}
+          expanded={expanded}
+          setOpen={setOpen}
+          toggleSidebar={toggleSidebar}
+          onLogout={handleLogout}
+        />
 
-        <main className="p-6">
+        {/* PAGE CONTENT */}
+        <main className="p-6 pt-[70px]">
           {children}
         </main>
 
