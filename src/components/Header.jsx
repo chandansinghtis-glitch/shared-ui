@@ -7,8 +7,8 @@ import {
   LogOut
 } from "lucide-react";
 
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,7 +16,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "./ui/dropdown-menu";
 
 import { useNavigate } from "react-router-dom";
 
