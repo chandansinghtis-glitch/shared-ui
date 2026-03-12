@@ -58,6 +58,17 @@ function MenuItems({ isOpen, user }) {
 
   const isActive = path => location.pathname === path;
 
+  const handleNavigation = (path) => {
+  if (!path) return;
+
+  // if external domain
+  if (path.startsWith("http")) {
+    window.location.href = path;
+  } else {
+    navigate(path);
+  }
+};
+
   return (
     <nav className="flex-col flex gap-2 relative">
 
@@ -95,7 +106,7 @@ function MenuItems({ isOpen, user }) {
               onClick={() => {
                 if (hasSubmenu && isOpen) toggleSubmenu(menuItem.id);
                 else if (!hasSubmenu && menuItem.path) {
-                  navigate(menuItem.path);
+                  handleNavigation(menuItem.path);
                 }
               }}
             >
@@ -139,7 +150,7 @@ function MenuItems({ isOpen, user }) {
                 {menuItem.submenus.map(sub => (
                   <div
                     key={sub.id}
-                    onClick={() => navigate(sub.path)}
+                    onClick={() => handleNavigation(sub.path)}
                     className={`px-4 py-2 rounded-md text-sm cursor-pointer transition-all
                       ${
                         isActive(sub.path)
@@ -162,7 +173,7 @@ function MenuItems({ isOpen, user }) {
                 {menuItem.submenus.map(sub => (
                   <div
                     key={sub.id}
-                    onClick={() => navigate(sub.path)}
+                    onClick={() => handleNavigation(sub.path)}
                     className={`px-2 py-2 rounded-md text-sm cursor-pointer transition-all
                       ${
                         isActive(sub.path)

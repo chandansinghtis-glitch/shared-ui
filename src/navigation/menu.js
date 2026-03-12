@@ -8,19 +8,20 @@ import {
   Settings,
   Home
 } from "lucide-react";
+import { MODULE_URLS } from "@/config/moduleUrls";
 
 export const adminSidebarMenuItems = [
   {
     id: "home",
     label: "Home",
-    path: "/admin/home",
+    path: `${MODULE_URLS.DASHBOARD}/admin/home`,
     icon: Home,
     permissions: ["home.view"],
   },
   {
     id: "analytics",
     label: "Dashboard",
-    path: "/admin/dashboard",
+    path: `${MODULE_URLS.DASHBOARD}/admin/dashboard`,
     icon: ChartNoAxesCombined,
     permissions: ["dashboard.view"],
   },
@@ -33,13 +34,13 @@ export const adminSidebarMenuItems = [
       {
         id: "eventcreate",
         label: "Event Create",
-        path: "/admin/eventcreate",
+        path: `${MODULE_URLS.EVENT}/admin/eventcreate`,
         permissions: ["event.create"]
       },
       {
         id: "eventlist",
         label: "Event List",
-        path: "/admin/events",
+        path: `${MODULE_URLS.EVENT}/admin/events`,
         permissions: ["event.view"]
       }
     ],
@@ -47,7 +48,7 @@ export const adminSidebarMenuItems = [
   {
     id: "orders",
     label: "Orders",
-    path: "/admin/orders",
+    path: `${MODULE_URLS.ORDER}/admin/orders`,
     icon: Receipt,
     permissions: ["order.view"],
   },
@@ -60,13 +61,13 @@ export const adminSidebarMenuItems = [
       {
         id: "userlist",
         label: "User List",
-        path: "/admin/users",
+        path: `${MODULE_URLS.USER}/admin/users`,
         permissions: ["user.view"]
       },
       {
         id: "vendors",
         label: "Vendors",
-        path: "/admin/vendors",
+        path: `${MODULE_URLS.USER}/admin/vendors`,
         permissions: ["vendor.view"]
       }
     ],
@@ -74,21 +75,21 @@ export const adminSidebarMenuItems = [
   {
     id: "setting",
     label: "Setting",
-    path: "/admin/setting",
+    path: `${MODULE_URLS.EVENT}/admin/setting`,
     icon: Settings,
     permissions: ["setting.manage"],
   },
   {
     id: "marketing",
     label: "Marketing",
-    path: "/admin/marketing",
+    path: `${MODULE_URLS.DASHBOARD}/admin/home`,
     icon: Megaphone,
     permissions: ["marketing.view"],
   },
   {
     id: "helpcenter",
     label: "Help Center",
-    path: "/admin/help-center",
+    path: `${MODULE_URLS.DASHBOARD}/admin/home`,
     icon: CircleHelp,
     permissions: ["help.view"],
   },
