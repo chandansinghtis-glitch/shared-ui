@@ -8,7 +8,7 @@ import {
   Settings,
   Home
 } from "lucide-react";
-import { MODULE_URLS } from "@/config/moduleUrls";
+import { MODULE_URLS } from "./../config/moduleUrls.js";
 
 export const adminSidebarMenuItems = [
   {
