@@ -62,19 +62,21 @@ export default function Header({
             className="p-2 rounded-md hidden lg:flex"
           >
             <ChevronLeft
-              className={`h-5 w-5 transition-transform duration-300 ${
-                expanded ? "" : "rotate-180"
-              }`}
+              className={`h-5 w-5 transition-transform duration-300 ${expanded ? "" : "rotate-180"
+                }`}
             />
           </Button>
 
           {/* LOGO */}
+
           {logo && (
-            <img
-              src={logo}
-              className="w-32 cursor-pointer"
-              onClick={() => navigate("/admin/dashboard")}
-            />
+            <a href="https://website-777376137863.australia-southeast1.run.app/" rel="noopener noreferrer">
+              <img
+                src={logo}
+                className="w-32 cursor-pointer"
+                alt="logo"
+              />
+            </a>
           )}
         </div>
 
@@ -146,9 +148,7 @@ export default function Header({
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
 
-              <DropdownMenuItem
-                onClick={() => navigate(`/admin/user/${user?._id}`)}
-              >
+              <DropdownMenuItem >
                 <User className="mr-2 h-4 w-4" /> Profile
               </DropdownMenuItem>
 

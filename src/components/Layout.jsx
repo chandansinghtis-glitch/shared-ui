@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
-import logo from './../asset/logo.png'
+import logo from './../asset/happnex-logo.svg'
 export default function Layout({ children, user }) {
 
   const [expanded, setExpanded] = useState(true);
@@ -12,7 +12,7 @@ export default function Layout({ children, user }) {
   };
 
   const handleLogout = () => {
-    window.location.href = "/login";
+   console.log('do logout')
   };
 
   return (
