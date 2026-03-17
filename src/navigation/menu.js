@@ -42,7 +42,7 @@ export const adminSidebarMenuItems = [
         label: "Event List",
         path: `${MODULE_URLS.EVENT}/admin/events`,
         permissions: ["event.view"]
-      }
+      },
       {
         id: "categories",
         label: "Categories",
