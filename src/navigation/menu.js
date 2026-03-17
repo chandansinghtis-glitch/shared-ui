@@ -43,6 +43,12 @@ export const adminSidebarMenuItems = [
         path: `${MODULE_URLS.EVENT}/admin/events`,
         permissions: ["event.view"]
       }
+      {
+        id: "categories",
+        label: "Categories",
+        path: `${MODULE_URLS.EVENT}/admin/event-cats`,
+        permissions: ["event.view"]
+      }
     ],
   },
   {
