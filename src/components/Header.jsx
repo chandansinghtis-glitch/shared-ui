@@ -44,6 +44,7 @@ export default function Header({
 
   /* ================= LOGOUT ================= */
   const handleLogoutClick = async () => {
+    console.log('doing logout from shared-ui')
     if (loggingOut) return;
 
     setLoggingOut(true);
