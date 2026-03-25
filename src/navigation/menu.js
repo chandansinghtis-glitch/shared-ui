@@ -72,7 +72,6 @@ export const adminSidebarMenuItems = [
       },
       { id: "staffs", label: "Staff", path: `${MODULE_URLS.USER}/admin/staffs`, permissions: ["staff.view"] },
       { id: "roles", label: "Roles", path: `${MODULE_URLS.USER}/admin/roles`, permissions: ["role.view"] },
-      { id: "permissions", label: "Permissions", path: `${MODULE_URLS.USER}/admin/permissions`, permissions: ["permission.manage"] },
       { id: "organizations", label: "Organizations", path: `${MODULE_URLS.USER}/admin/organizations`, permissions: ["organization.view"] },
      
       {
