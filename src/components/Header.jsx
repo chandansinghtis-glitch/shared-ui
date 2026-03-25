@@ -19,30 +19,49 @@ import {
 } from "./ui/dropdown-menu";
 
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
+/* ================= HELPERS ================= */
+const truncate = (text = "", length = 18) =>
+  text.length > length ? text.slice(0, length) + "..." : text;
+
+/* ================= COMPONENT ================= */
 export default function Header({
   user,
   expanded,
   setOpen,
   toggleSidebar,
   onLogout,
+  onProfileClick,
   logo,
+  logoLink = "/",
   ActiveRoleSwitch,
-  OrgRoleSwitch
+  OrgRoleSwitch,
+  NotificationComponent,
 }) {
-
   const navigate = useNavigate();
+  const [loggingOut, setLoggingOut] = useState(false);
 
-  const truncate = (text, length = 18) => {
-    if (!text) return "";
-    return text.length > length ? text.slice(0, length) + "..." : text;
+  /* ================= LOGOUT ================= */
+  const handleLogoutClick = async () => {
+    if (loggingOut) return;
+
+    setLoggingOut(true);
+    try {
+      await onLogout?.();
+    } catch (e) {
+      console.error("Logout failed", e);
+    } finally {
+      // fallback reset (in case navigation fails)
+      setTimeout(() => setLoggingOut(false), 3000);
+    }
   };
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-lg border-b z-50">
       <div className="flex items-center justify-between h-[60px] px-4">
 
-        {/* LEFT */}
+        {/* ================= LEFT ================= */}
         <div className="flex items-center gap-3">
 
           {/* MOBILE MENU */}
@@ -62,25 +81,24 @@ export default function Header({
             className="p-2 rounded-md hidden lg:flex"
           >
             <ChevronLeft
-              className={`h-5 w-5 transition-transform duration-300 ${expanded ? "" : "rotate-180"
-                }`}
+              className={`h-5 w-5 transition-transform duration-300 ${
+                expanded ? "" : "rotate-180"
+              }`}
             />
           </Button>
 
           {/* LOGO */}
-
           {logo && (
-            <a href="https://website-777376137863.australia-southeast1.run.app/" rel="noopener noreferrer">
-              <img
-                src={logo}
-                className="w-32 cursor-pointer"
-                alt="logo"
-              />
-            </a>
+            <img
+              src={logo}
+              onClick={() => navigate(logoLink)}
+              className="w-32 cursor-pointer"
+              alt="logo"
+            />
           )}
         </div>
 
-        {/* RIGHT */}
+        {/* ================= RIGHT ================= */}
         <div className="flex items-center gap-3 ml-auto">
 
           {/* SEARCH */}
@@ -92,42 +110,40 @@ export default function Header({
             />
           </div>
 
-          {/* NOTIFICATIONS */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button size="icon" variant="ghost" className="relative">
-                <Bell className="h-5 w-5" />
-                <span className="absolute top-1 right-1 h-2 w-2 bg-red-500 rounded-full" />
-              </Button>
-            </DropdownMenuTrigger>
+          {/* ================= NOTIFICATIONS ================= */}
+          {NotificationComponent ? (
+            <NotificationComponent user={user} />
+          ) : (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button size="icon" variant="ghost" className="relative">
+                  <Bell className="h-5 w-5" />
+                  <span className="absolute top-1 right-1 h-2 w-2 bg-red-500 rounded-full" />
+                </Button>
+              </DropdownMenuTrigger>
 
-            <DropdownMenuContent align="end" className="w-72 mt-2 rounded-xl shadow-xl">
-              <DropdownMenuLabel>Notifications</DropdownMenuLabel>
-              <DropdownMenuSeparator />
+              <DropdownMenuContent
+                align="end"
+                className="w-72 mt-2 rounded-xl shadow-xl"
+              >
+                <DropdownMenuLabel>Notifications</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>No notifications</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
 
-              <DropdownMenuItem className="flex flex-col items-start py-3">
-                <p className="font-medium text-sm">New Order</p>
-                <span className="text-xs text-muted-foreground">2 min ago</span>
-              </DropdownMenuItem>
-
-              <DropdownMenuSeparator />
-
-              <DropdownMenuItem className="flex flex-col items-start py-3">
-                <p className="font-medium text-sm">Revenue updated</p>
-                <span className="text-xs text-muted-foreground">1 hour ago</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          {/* USER MENU */}
+          {/* ================= USER MENU ================= */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button className="flex items-center gap-2 px-2 py-1 rounded-md hover:bg-gray-100">
 
+                {/* ICON */}
                 <div className="h-9 w-9 flex items-center justify-center rounded-md bg-muted">
                   <User className="h-5 w-5" />
                 </div>
 
+                {/* NAME + ROLE */}
                 <div className="hidden md:flex flex-col text-left leading-tight">
                   <span
                     className="text-sm font-semibold max-w-[140px] truncate"
@@ -143,30 +159,33 @@ export default function Header({
               </button>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent align="end" className="w-56 mt-2 rounded-xl shadow-xl">
-
+            <DropdownMenuContent
+              align="end"
+              className="w-56 mt-2 rounded-xl shadow-xl"
+            >
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
 
-              <DropdownMenuItem >
+              <DropdownMenuItem onClick={() => onProfileClick?.()}>
                 <User className="mr-2 h-4 w-4" /> Profile
               </DropdownMenuItem>
 
               <DropdownMenuSeparator />
 
               <DropdownMenuItem
-                onClick={onLogout}
+                onClick={handleLogoutClick}
+                disabled={loggingOut}
                 className="text-red-600 focus:text-red-600"
               >
-                <LogOut className="mr-2 h-4 w-4" /> Logout
+                <LogOut className="mr-2 h-4 w-4" />
+                {loggingOut ? "Logging out..." : "Logout"}
               </DropdownMenuItem>
-
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* OPTIONAL SWITCH COMPONENTS */}
-          {ActiveRoleSwitch && <ActiveRoleSwitch user={user} />}
-          {OrgRoleSwitch && <OrgRoleSwitch />}
+          {/* ================= SWITCHES ================= */}
+          {user && ActiveRoleSwitch && <ActiveRoleSwitch user={user} />}
+          {user && OrgRoleSwitch && <OrgRoleSwitch />}
 
         </div>
       </div>
