@@ -1,7 +1,7 @@
 import {
   ChevronDown
 } from "lucide-react";
-import { Fragment, useState, useRef } from "react";
+import { Fragment, useState, useRef, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { adminSidebarMenuItems } from "../navigation/menu";
 
@@ -11,8 +11,8 @@ const filterMenuByPermissions = (menus, userPermissions) => {
     .map(menu => {
       const filteredSubmenus = menu.submenus
         ? menu.submenus.filter(sub =>
-            sub.permissions.some(p => userPermissions.includes(p))
-          )
+          sub.permissions.some(p => userPermissions.includes(p))
+        )
         : [];
 
       const includeMenu =
@@ -43,6 +43,16 @@ function MenuItems({ isOpen, user }) {
     userPermissions
   );
 
+  useEffect(() => {
+  const newOpen = {};
+  filteredMenus.forEach(menu => {
+    if (menu.submenus?.some(sub => isActive(sub.path))) {
+      newOpen[menu.id] = true;
+    }
+  });
+  setOpenSubmenus(newOpen);
+}, [location.pathname]);
+
   const handleEnter = id => {
     clearTimeout(hoverTimeoutRef.current);
     setHoveredParent(id);
@@ -56,18 +66,21 @@ function MenuItems({ isOpen, user }) {
     setOpenSubmenus(prev => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const isActive = path => location.pathname === path;
+  const isActive = (path) => {
+    if (!path) return false;
+    return location.pathname.startsWith(new URL(path).pathname);
+  };
 
   const handleNavigation = (path) => {
-  if (!path) return;
+    if (!path) return;
 
-  // if external domain
-  if (path.startsWith("http")) {
-    window.location.href = path;
-  } else {
-    navigate(path);
-  }
-};
+    // if external domain
+    if (path.startsWith("http")) {
+      window.location.href = path;
+    } else {
+      navigate(path);
+    }
+  };
 
   return (
     <nav className="flex-col flex gap-2 relative">
@@ -96,10 +109,9 @@ function MenuItems({ isOpen, user }) {
             {/* Parent menu */}
             <div
               className={`flex cursor-pointer items-center gap-2 rounded-md px-3 py-2 transition-all
-                ${
-                  isActive(menuItem.path) || activeParent
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                ${isActive(menuItem.path) || activeParent
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
                 }
                 ${isOpen ? "justify-between" : "justify-center"}
               `}
@@ -116,11 +128,10 @@ function MenuItems({ isOpen, user }) {
                 {Icon && <Icon size={18} />}
 
                 <span
-                  className={`transition-all duration-200 ${
-                    isOpen
-                      ? "opacity-100 ml-2"
-                      : "opacity-0 w-0 overflow-hidden"
-                  }`}
+                  className={`transition-all duration-200 ${isOpen
+                    ? "opacity-100 ml-2"
+                    : "opacity-0 w-0 overflow-hidden"
+                    }`}
                 >
                   {menuItem.label}
                 </span>
@@ -129,13 +140,15 @@ function MenuItems({ isOpen, user }) {
 
               {hasSubmenu && isOpen && (
                 <button
-                  onClick={() => toggleSubmenu(menuItem.id)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleSubmenu(menuItem.id);
+                  }}
                   className="p-1 rounded hover:bg-muted"
                 >
                   <ChevronDown
-                    className={`h-4 w-4 transition-transform duration-300 ${
-                      isSubmenuOpen ? "rotate-180" : "rotate-0"
-                    }`}
+                    className={`h-4 w-4 transition-transform duration-300 ${isSubmenuOpen ? "rotate-180" : "rotate-0"
+                      }`}
                   />
                 </button>
               )}
@@ -143,7 +156,7 @@ function MenuItems({ isOpen, user }) {
 
             {/* Collapsed hover submenu */}
             {!isOpen && isHovered && hasSubmenu && (
-              <div className="absolute left-full top-0 ml-2 w-48 bg-background border shadow-lg rounded-md py-2 z-50 animate-slideIn">
+              <div className="relative flex flex-col overflow-visible ml-2 w-48 bg-background border shadow-lg rounded-md py-2 z-50 animate-slideIn">
 
                 <div className="absolute -left-2 top-3 w-3 h-3 bg-background border-t border-r rotate-45"></div>
 
@@ -152,10 +165,9 @@ function MenuItems({ isOpen, user }) {
                     key={sub.id}
                     onClick={() => handleNavigation(sub.path)}
                     className={`px-4 py-2 rounded-md text-sm cursor-pointer transition-all
-                      ${
-                        isActive(sub.path)
-                          ? "text-primary bg-muted"
-                          : "hover:bg-muted"
+                      ${isActive(sub.path)
+                        ? "text-primary bg-muted"
+                        : "hover:bg-muted"
                       }
                     `}
                   >
@@ -175,10 +187,9 @@ function MenuItems({ isOpen, user }) {
                     key={sub.id}
                     onClick={() => handleNavigation(sub.path)}
                     className={`px-2 py-2 rounded-md text-sm cursor-pointer transition-all
-                      ${
-                        isActive(sub.path)
-                          ? "text-primary"
-                          : "hover:bg-muted"
+                      ${isActive(sub.path)
+                        ? "text-primary"
+                        : "hover:bg-muted"
                       }
                     `}
                   >
@@ -206,14 +217,12 @@ export default function Sidebar({ expanded = true, user }) {
     <Fragment>
 
       <aside
-        className="hidden lg:flex flex-col border-r bg-background pt-[50px] fixed h-full left-0 top-0 transition-width duration-300 ease-in-out z-10"
+        className="hidden lg:flex flex-col border-r bg-background pt-[50px] fixed h-full left-0 top-0 z-10 overflow-y-auto overflow-x-visible"
         style={{ width: isOpen ? 240 : 70 }}
       >
-
         <div className="py-6">
           <MenuItems isOpen={isOpen} user={user} />
         </div>
-
       </aside>
 
       <style>
