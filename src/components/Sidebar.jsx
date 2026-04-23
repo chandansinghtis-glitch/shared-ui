@@ -33,7 +33,7 @@ function MenuItems({ isOpen, user }) {
   const location = useLocation();
 
   const [hoveredParent, setHoveredParent] = useState(null);
-  const [openSubmenus, setOpenSubmenus] = useState(null);
+  const [openSubmenu, setOpenSubmenu] = useState(null);
   
   const hoverTimeoutRef = useRef(null);
 
