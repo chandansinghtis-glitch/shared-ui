@@ -117,14 +117,14 @@ export const adminSidebarMenuItems = [
   {
     id: "marketing",
     label: "Marketing",
-    path: `${MODULE_URLS.DASHBOARD}/admin/home`,
+    path: `${MODULE_URLS.DASHBOARD}/admin/marketing`,
     icon: Megaphone,
     permissions: ["marketing.view"],
   },
   {
     id: "helpcenter",
     label: "Help Center",
-    path: `${MODULE_URLS.DASHBOARD}/admin/home`,
+    path: `${MODULE_URLS.DASHBOARD}/admin/help-center`,
     icon: CircleHelp,
     permissions: ["help.view"],
   },

@@ -33,7 +33,8 @@ function MenuItems({ isOpen, user }) {
   const location = useLocation();
 
   const [hoveredParent, setHoveredParent] = useState(null);
-  const [openSubmenus, setOpenSubmenus] = useState({});
+  const [openSubmenus, setOpenSubmenus] = useState(null);
+  
   const hoverTimeoutRef = useRef(null);
 
   const userPermissions = user?.permissions || [];
@@ -44,13 +45,13 @@ function MenuItems({ isOpen, user }) {
   );
 
   useEffect(() => {
-  const newOpen = {};
-  filteredMenus.forEach(menu => {
-    if (menu.submenus?.some(sub => isActive(sub.path))) {
-      newOpen[menu.id] = true;
-    }
-  });
-  setOpenSubmenus(newOpen);
+  const activeMenu = filteredMenus.find(menu =>
+    menu.submenus?.some(sub => isActive(sub.path))
+  );
+
+  if (activeMenu) {
+    setOpenSubmenu(activeMenu.id);
+  }
 }, [location.pathname]);
 
   const handleEnter = id => {
@@ -62,9 +63,9 @@ function MenuItems({ isOpen, user }) {
     hoverTimeoutRef.current = setTimeout(() => setHoveredParent(null), 120);
   };
 
-  const toggleSubmenu = id => {
-    setOpenSubmenus(prev => ({ ...prev, [id]: !prev[id] }));
-  };
+ const toggleSubmenu = (id) => {
+  setOpenSubmenu(prev => (prev === id ? null : id));
+};
 
   const isActive = (path) => {
     if (!path) return false;
@@ -89,7 +90,7 @@ function MenuItems({ isOpen, user }) {
 
         const hasSubmenu = menuItem.submenus && menuItem.submenus.length > 0;
         const isHovered = hoveredParent === menuItem.id;
-        const isSubmenuOpen = openSubmenus[menuItem.id];
+        const isSubmenuOpen = openSubmenu === menuItem.id;
 
         const activeParent =
           hasSubmenu &&
