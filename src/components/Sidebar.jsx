@@ -1,7 +1,7 @@
 import {
   ChevronDown
 } from "lucide-react";
-import { Fragment, useState, useRef, useEffect } from "react";
+import { Fragment, useState, useRef, useEffect, useMemo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { adminSidebarMenuItems } from "../navigation/menu";
 
@@ -34,25 +34,30 @@ function MenuItems({ isOpen, user }) {
 
   const [hoveredParent, setHoveredParent] = useState(null);
   const [openSubmenu, setOpenSubmenu] = useState(null);
-  
+
   const hoverTimeoutRef = useRef(null);
 
   const userPermissions = user?.permissions || [];
 
-  const filteredMenus = filterMenuByPermissions(
-    adminSidebarMenuItems,
-    userPermissions
-  );
+  const filteredMenus = useMemo(() =>
+    filterMenuByPermissions(adminSidebarMenuItems, userPermissions),
+    [userPermissions]);
 
   useEffect(() => {
-  const activeMenu = filteredMenus.find(menu =>
-    menu.submenus?.some(sub => isActive(sub.path))
-  );
+    const activeMenu = filteredMenus.find(menu =>
+      menu.submenus?.some(sub => isActive(sub.path))
+    );
 
-  if (activeMenu) {
-    setOpenSubmenu(activeMenu.id);
-  }
-}, [location.pathname]);
+    if (activeMenu) {
+      setOpenSubmenu(activeMenu.id);
+    }
+  }, [location.pathname, filteredMenus]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setOpenSubmenu(null);
+    }
+  }, [isOpen]);
 
   const handleEnter = id => {
     clearTimeout(hoverTimeoutRef.current);
@@ -63,13 +68,22 @@ function MenuItems({ isOpen, user }) {
     hoverTimeoutRef.current = setTimeout(() => setHoveredParent(null), 120);
   };
 
- const toggleSubmenu = (id) => {
-  setOpenSubmenu(prev => (prev === id ? null : id));
-};
+  const toggleSubmenu = (id) => {
+    setOpenSubmenu(prev => (prev === id ? null : id));
+  };
 
   const isActive = (path) => {
     if (!path) return false;
-    return location.pathname.startsWith(new URL(path).pathname);
+
+    try {
+      const url = path.startsWith("http")
+        ? new URL(path)
+        : new URL(path, window.location.origin);
+
+      return location.pathname.startsWith(url.pathname);
+    } catch {
+      return false;
+    }
   };
 
   const handleNavigation = (path) => {
@@ -109,13 +123,12 @@ function MenuItems({ isOpen, user }) {
 
             {/* Parent menu */}
             <div
-              className={`flex cursor-pointer items-center gap-2 rounded-md px-3 py-2 transition-all
-                ${isActive(menuItem.path) || activeParent
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
+              className={`relative group flex cursor-pointer items-center gap-2 rounded-md px-3 py-2 transition-all
+    ${isActive(menuItem.path) || activeParent
+                  ? "bg-primary/10 text-primary"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground hover:shadow-sm"
                 }
-                ${isOpen ? "justify-between" : "justify-center"}
-              `}
+  `}
               onClick={() => {
                 if (hasSubmenu && isOpen) toggleSubmenu(menuItem.id);
                 else if (!hasSubmenu && menuItem.path) {
@@ -123,6 +136,15 @@ function MenuItems({ isOpen, user }) {
                 }
               }}
             >
+              {!isOpen && (
+                <div className="absolute left-full ml-3 z-50 px-2 py-1 text-xs bg-black text-white rounded shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  {menuItem.label}
+                </div>
+              )}
+
+              {(isActive(menuItem.path) || activeParent) && (
+                <div className="absolute left-0 top-1 bottom-1 w-1 bg-primary rounded-r-md" />
+              )}
               <div className="flex items-center gap-2">
 
                 {/* ✅ Icon render fix */}
@@ -148,7 +170,7 @@ function MenuItems({ isOpen, user }) {
                   className="p-1 rounded hover:bg-muted"
                 >
                   <ChevronDown
-                    className={`h-4 w-4 transition-transform duration-300 ${isSubmenuOpen ? "rotate-180" : "rotate-0"
+                    className={`h-4 w-4 transition-all duration-300 ease-in-out ${isSubmenuOpen ? "rotate-180" : "rotate-0"
                       }`}
                   />
                 </button>
@@ -157,20 +179,20 @@ function MenuItems({ isOpen, user }) {
 
             {/* Collapsed hover submenu */}
             {!isOpen && isHovered && hasSubmenu && (
-              <div className="relative flex flex-col overflow-visible ml-2 w-48 bg-background border shadow-lg rounded-md py-2 z-50 animate-slideIn">
+              <div className="absolute left-full top-0 ml-2 w-48 flex flex-col bg-background/80 backdrop-blur-md border shadow-lg rounded-md py-2 z-50 animate-slideIn">
 
-                <div className="absolute -left-2 top-3 w-3 h-3 bg-background border-t border-r rotate-45"></div>
+                <div className="absolute -left-2 top-3 w-3 h-3 bg-background/80 backdrop-blur-md border-t border-r rotate-45"></div>
 
                 {menuItem.submenus.map(sub => (
                   <div
                     key={sub.id}
                     onClick={() => handleNavigation(sub.path)}
-                    className={`px-4 py-2 rounded-md text-sm cursor-pointer transition-all
-                      ${isActive(sub.path)
-                        ? "text-primary bg-muted"
+                    className={`px-2 py-2 rounded-md text-sm cursor-pointer transition-all
+  ${isActive(sub.path)
+                        ? "bg-primary/10 text-primary font-medium"
                         : "hover:bg-muted"
                       }
-                    `}
+`}
                   >
                     {sub.label}
                   </div>
@@ -180,8 +202,11 @@ function MenuItems({ isOpen, user }) {
             )}
 
             {/* Expanded submenu */}
-            {hasSubmenu && isOpen && isSubmenuOpen && (
-              <div className="ml-6 gap-2 flex flex-col transition-all duration-300">
+            {hasSubmenu && isOpen && (
+              <div
+                className={`ml-6 flex flex-col overflow-hidden transition-all duration-300 ease-in-out ${isSubmenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                  }`}
+              >
 
                 {menuItem.submenus.map(sub => (
                   <div
@@ -189,7 +214,7 @@ function MenuItems({ isOpen, user }) {
                     onClick={() => handleNavigation(sub.path)}
                     className={`px-2 py-2 rounded-md text-sm cursor-pointer transition-all
                       ${isActive(sub.path)
-                        ? "text-primary"
+                        ? "bg-primary/10 text-primary font-medium"
                         : "hover:bg-muted"
                       }
                     `}
@@ -218,7 +243,7 @@ export default function Sidebar({ expanded = true, user }) {
     <Fragment>
 
       <aside
-        className="hidden lg:flex flex-col border-r bg-background pt-[50px] fixed h-full left-0 top-0 z-10 overflow-y-auto overflow-x-visible"
+        className="hidden lg:flex flex-col border-r bg-background/80 backdrop-blur-md pt-[50px] fixed h-full left-0 top-0 z-10 overflow-y-auto overflow-x-visible"
         style={{ width: isOpen ? 240 : 70 }}
       >
         <div className="py-6">
