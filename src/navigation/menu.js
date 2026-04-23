@@ -54,9 +54,34 @@ export const adminSidebarMenuItems = [
   {
     id: "orders",
     label: "Orders",
-    path: `${MODULE_URLS.ORDER}/admin/orders`,
     icon: Receipt,
     permissions: ["order.view"],
+    submenus: [
+      {
+        id: "orderslist",
+        label: "All Orders",
+        path: `${MODULE_URLS.ORDER}/admin/orders`,
+        permissions: ["order.view"]
+      },
+      {
+        id: "cacelationreq",
+        label: "Cancelation Requests",
+        path: `${MODULE_URLS.ORDER}/admin/cacellation-requests`,
+        permissions: ["event.view"]
+      },
+      {
+        id: "cacelationreq",
+        label: "Approved Requests",
+        path: `${MODULE_URLS.ORDER}/admin/support-cacellation-requests`,
+        permissions: ["event.view"]
+      },
+      {
+        id: "swapreq",
+        label: "Swap Requests",
+        path: `${MODULE_URLS.EVENT}/admin/swap-requests-list`,
+        permissions: ["event.view"]
+      },
+    ],
   },
   {
     id: "users",
