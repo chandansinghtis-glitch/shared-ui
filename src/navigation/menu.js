@@ -33,7 +33,7 @@ export const adminSidebarMenuItems = [
     submenus: [
       {
         id: "eventcreate",
-        label: "Event Create",
+        label: "Create Event",
         path: `${MODULE_URLS.EVENT}/admin/eventcreate`,
         permissions: ["event.create"]
       },
@@ -48,6 +48,12 @@ export const adminSidebarMenuItems = [
         label: "Categories",
         path: `${MODULE_URLS.EVENT}/admin/event-cats`,
         permissions: ["event.view"]
+      },
+      {
+        id: "vendors",
+        label: "Vendors",
+        path: `${MODULE_URLS.EVENT}/admin/addon-vendors`,
+        permissions: ["vendor.view"]
       }
     ],
   },
@@ -99,12 +105,7 @@ export const adminSidebarMenuItems = [
       { id: "roles", label: "Roles", path: `${MODULE_URLS.USER}/admin/roles`, permissions: ["role.view"] },
       { id: "organizations", label: "Organizations", path: `${MODULE_URLS.USER}/admin/organizations`, permissions: ["organization.view"] },
      
-      {
-        id: "vendors",
-        label: "Vendors",
-        path: `${MODULE_URLS.USER}/admin/vendors`,
-        permissions: ["vendor.view"]
-      }
+      
     ],
   },
   {
