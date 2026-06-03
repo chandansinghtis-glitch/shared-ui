@@ -111,9 +111,29 @@ export const adminSidebarMenuItems = [
   {
     id: "setting",
     label: "Setting",
-    path: `${MODULE_URLS.EVENT}/admin/setting`,
     icon: Settings,
     permissions: ["setting.manage"],
+    submenus: [
+      {
+        id: "partners",
+        label: "Partners",
+        path: `${MODULE_URLS.EVENT}/admin/partners`,
+        permissions: ["event.create"]
+      },
+      {
+        id: "rewards",
+        label: "Rewards/Cashback",
+        path: `${MODULE_URLS.EVENT}/admin/rewards`,
+        permissions: ["event.view"]
+      },
+      {
+        id: "referal",
+        label: "Referal/Promoter",
+        path: `${MODULE_URLS.EVENT}/admin/referal-promoter-center`,
+        permissions: ["event.view"]
+      },
+      
+    ],
   },
   {
     id: "marketing",
