@@ -113,7 +113,15 @@ export const adminSidebarMenuItems = [
     label: "Setting",
     icon: Settings,
     permissions: ["setting.manage"],
-    submenus: [
+   
+  },
+  {
+    id: "marketing",
+    label: "Marketing",
+    path: `${MODULE_URLS.DASHBOARD}/admin/marketing`,
+    icon: Megaphone,
+    permissions: ["marketing.view"],
+     submenus: [
       {
         id: "partners",
         label: "Partners",
@@ -134,13 +142,6 @@ export const adminSidebarMenuItems = [
       },
       
     ],
-  },
-  {
-    id: "marketing",
-    label: "Marketing",
-    path: `${MODULE_URLS.DASHBOARD}/admin/marketing`,
-    icon: Megaphone,
-    permissions: ["marketing.view"],
   },
   {
     id: "helpcenter",
