@@ -118,7 +118,7 @@ export const adminSidebarMenuItems = [
   },
   {
     id: "referal_reward",
-    label: "Referal & Reward",
+    label: "Referral & Reward",
     
     icon: Wallet,
     permissions: ["marketing.view"],
