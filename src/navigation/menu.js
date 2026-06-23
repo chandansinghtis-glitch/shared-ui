@@ -6,7 +6,8 @@ import {
   CalendarDays,
   Megaphone,
   Settings,
-  Home
+  Home,
+  Wallet
 } from "lucide-react";
 import { MODULE_URLS } from "./../config/moduleUrls.js";
 
@@ -116,28 +117,56 @@ export const adminSidebarMenuItems = [
    
   },
   {
-    id: "marketing",
-    label: "Marketing",
-    path: `${MODULE_URLS.DASHBOARD}/admin/marketing`,
-    icon: Megaphone,
+    id: "referal_reward",
+    label: "Referal & Reward",
+    
+    icon: Wallet,
     permissions: ["marketing.view"],
      submenus: [
       {
         id: "partners",
         label: "Partners",
-        path: `${MODULE_URLS.EVENT}/admin/partners`,
+        path: `${MODULE_URLS.REWARD}/admin/partners`,
         permissions: ["event.create"]
       },
       {
         id: "rewards",
         label: "Rewards/Cashback",
-        path: `${MODULE_URLS.EVENT}/admin/rewards`,
+        path: `${MODULE_URLS.REWARD}/admin/rewards`,
         permissions: ["event.view"]
       },
       {
         id: "referal",
         label: "Referal/Promoter",
-        path: `${MODULE_URLS.EVENT}/admin/referal-promoter-center`,
+        path: `${MODULE_URLS.REWARD}/admin/referal-promoter-center`,
+        permissions: ["event.view"]
+      },
+      
+    ],
+  },
+  {
+    id: "marketing",
+    label: "Marketing",
+    
+    icon: Megaphone,
+    permissions: ["marketing.view"],
+     submenus: [
+      {
+        id: "facebook",
+        label: "Facebook Marketing",
+        path: `${MODULE_URLS.MARKETING}/admin/partners`,
+        permissions: ["event.create"]
+      },
+      {
+        id: "email",
+        label: "Email Marketing",
+        path: `${MODULE_URLS.MARKETING}/admin/rewards`,
+        permissions: ["event.view"]
+      },
+      {
+        id: "sms",
+        label: "SMS Marketing",
+        path: `${MODULE_URLS.MARKETING}/admin/referal-promoter-center`,
         permissions: ["event.view"]
       },
       
