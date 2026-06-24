@@ -153,20 +153,26 @@ export const adminSidebarMenuItems = [
      submenus: [
       {
         id: "facebook",
-        label: "Facebook Marketing",
-        path: `${MODULE_URLS.MARKETING}/admin/partners`,
+        label: "Create Facebook Ad Campaign",
+        path: `${MODULE_URLS.MARKETING}/admin/marketing/facebook`,
+        permissions: ["event.create"]
+      },
+      {
+        id: "facebook",
+        label: "Facebook Ad Campaigns",
+        path: `${MODULE_URLS.MARKETING}/admin/marketing/facebook-ads`,
         permissions: ["event.create"]
       },
       {
         id: "email",
         label: "Email Marketing",
-        path: `${MODULE_URLS.MARKETING}/admin/rewards`,
+        path: `${MODULE_URLS.MARKETING}/admin/marketing/email`,
         permissions: ["event.view"]
       },
       {
         id: "sms",
         label: "SMS Marketing",
-        path: `${MODULE_URLS.MARKETING}/admin/referal-promoter-center`,
+        path: `${MODULE_URLS.MARKETING}/admin/marketing/sms`,
         permissions: ["event.view"]
       },
       
