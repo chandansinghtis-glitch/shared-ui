@@ -110,12 +110,20 @@ export const adminSidebarMenuItems = [
     ],
   },
   {
-    id: "setting",
-    label: "Setting",
-    icon: Settings,
+    id: "finance",
+    label: "Finance",
+    icon: Scroll,
+     path: `${MODULE_URLS.FINANCE}/admin/finance`,
     permissions: ["setting.manage"],
    
   },
+  // {
+  //   id: "setting",
+  //   label: "Setting",
+  //   icon: Settings,
+  //   permissions: ["setting.manage"],
+   
+  // },
   {
     id: "referal_reward",
     label: "Referral & Reward",
