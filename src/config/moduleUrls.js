@@ -5,5 +5,5 @@ export const MODULE_URLS = {
   ORDER: window.APP_CONFIG?.ORDER_MODULE_URL || 'https://order-module-777376137863.australia-southeast1.run.app',
   REWARD: window.APP_CONFIG?.REWARD_MODULE_URL || 'https://referral-reward-module-777376137863.australia-southeast1.run.app',
   MARKETING: window.APP_CONFIG?.MARKETING_MODULE_URL || 'https://marketing-module-777376137863.australia-southeast1.run.app',
-  FINANCE: window.APP_CONFIG?.FINANCE_MODULE_URL || 'https://invoice++-module-777376137863.australia-southeast1.run.app',
+  FINANCE: window.APP_CONFIG?.FINANCE_MODULE_URL || 'https://invoice-module-777376137863.australia-southeast1.run.app',
 };
