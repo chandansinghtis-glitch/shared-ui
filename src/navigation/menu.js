@@ -7,7 +7,8 @@ import {
   Megaphone,
   Settings,
   Home,
-  Wallet
+  Wallet,
+  Scroll
 } from "lucide-react";
 import { MODULE_URLS } from "./../config/moduleUrls.js";
 
