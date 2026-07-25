@@ -136,7 +136,7 @@ export const adminSidebarMenuItems = [
         id: "partners",
         label: "Partners",
         path: `${MODULE_URLS.REWARD}/admin/partners`,
-        permissions: ["event.create"]
+        permissions: ["user.view"]
       },
       {
         id: "rewards",
