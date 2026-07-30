@@ -10,7 +10,7 @@ import {
   Wallet,
   Scroll
 } from "lucide-react";
-import { MODULE_URLS,DASHBOARD_ROUTES } from "./../config/moduleUrls.js";
+import { MODULE_URLS,DASHBOARD_ROUTES,EVENT_ROUTES,MARKETING_ROUTES,REFERAL_REWARD_ROUTES,FINANCE_ROUTES,USER_ROUTES,ORDER_ROUTES } from "./../config/moduleUrls.js";
 
 export const adminSidebarMenuItems = [
   {
@@ -36,25 +36,25 @@ export const adminSidebarMenuItems = [
       {
         id: "eventcreate",
         label: "Create Event",
-        path: `${MODULE_URLS.EVENT}/eventcreate`,
+        path: EVENT_ROUTES.CREATE_EVENT,
         permissions: ["event.create"]
       },
       {
         id: "eventlist",
         label: "Event List",
-        path: `${MODULE_URLS.EVENT}`,
+        path: EVENT_ROUTES.EVENTS,
         permissions: ["event.view"]
       },
       {
         id: "categories",
         label: "Categories",
-        path: `${MODULE_URLS.EVENT}/event-cats`,
+        path: EVENT_ROUTES.CATEGORIES,
         permissions: ["event.view"]
       },
       {
         id: "vendors",
         label: "Vendors",
-        path: `${MODULE_URLS.EVENT}/addon-vendors`,
+        path: EVENT_ROUTES.VENDORS,
         permissions: ["vendor.view"]
       }
     ],
@@ -68,25 +68,25 @@ export const adminSidebarMenuItems = [
       {
         id: "orderslist",
         label: "All Orders",
-        path: `${MODULE_URLS.ORDER}`,
+        path: ORDER_ROUTES.ORDERS,
         permissions: ["order.view"]
       },
       {
         id: "cacelationreq",
         label: "Cancelation Requests",
-        path: `${MODULE_URLS.ORDER}/cacellation-requests`,
+        path: ORDER_ROUTES.ORDER_CANCELATION_REQ,
         permissions: ["event.view"]
       },
       {
         id: "cacelationreq",
         label: "Approved Requests",
-        path: `${MODULE_URLS.ORDER}/support-cacellation-requests`,
+        path: ORDER_ROUTES.ORDER_SUPPORT_CANCELATION_REQ,
         permissions: ["event.view"]
       },
       {
         id: "swapreq",
         label: "Swap Requests",
-        path: `${MODULE_URLS.EVENT}/swap-requests-list`,
+        path: ORDER_ROUTES.ORDER_SWAP_REQ_LIST,
         permissions: ["event.view"]
       },
     ],
@@ -100,12 +100,12 @@ export const adminSidebarMenuItems = [
       {
         id: "userlist",
         label: "User List",
-        path: `${MODULE_URLS.USER}`,
+        path: USER_ROUTES.USERS,
         permissions: ["user.view"]
       },
-      { id: "staffs", label: "Staff", path: `${MODULE_URLS.USER}/staffs`, permissions: ["staff.view"] },
-      { id: "roles", label: "Roles", path: `${MODULE_URLS.USER}/roles`, permissions: ["role.view"] },
-      { id: "organizations", label: "Organizations", path: `${MODULE_URLS.USER}/organizations`, permissions: ["organization.view"] },
+      { id: "staffs", label: "Staff", path: USER_ROUTES.STAFF, permissions: ["staff.view"] },
+      { id: "roles", label: "Roles", path: USER_ROUTES.ROLES, permissions: ["role.view"] },
+      { id: "organizations", label: "Organizations", path: USER_ROUTES.ORGANIZATION, permissions: ["organization.view"] },
      
       
     ],
@@ -114,7 +114,7 @@ export const adminSidebarMenuItems = [
     id: "finance",
     label: "Finance",
     icon: Scroll,
-     path: `${MODULE_URLS.FINANCE}`,
+    path: FINANCE_ROUTES.FINANCE,
     permissions: ["setting.manage"],
    
   },
@@ -135,19 +135,19 @@ export const adminSidebarMenuItems = [
       {
         id: "partners",
         label: "Partners",
-        path: `${MODULE_URLS.REWARD}/partners`,
+        path: REFERAL_REWARD_ROUTES.PARTNERS,
         permissions: ["user.view"]
       },
       {
         id: "rewards",
         label: "Rewards/Cashback",
-        path: `${MODULE_URLS.REWARD}/rewards`,
+        path: REFERAL_REWARD_ROUTES.REWARDS,
         permissions: ["event.view"]
       },
       {
         id: "referal",
         label: "Referal/Promoter",
-        path: `${MODULE_URLS.REWARD}/referal-promoter-center`,
+        path: REFERAL_REWARD_ROUTES.REFERAL_PROMOTER,
         permissions: ["event.view"]
       },
       
@@ -163,25 +163,25 @@ export const adminSidebarMenuItems = [
       {
         id: "facebook",
         label: "Create Facebook Ad Campaign",
-        path: `${MODULE_URLS.MARKETING}/facebook`,
+        path: MARKETING_ROUTES.FACEBOOK,
         permissions: ["event.create"]
       },
       {
         id: "facebook",
         label: "Facebook Ad Campaigns",
-        path: `${MODULE_URLS.MARKETING}/facebook-ads`,
+        path: MARKETING_ROUTES.FACEBOOK_ADS,
         permissions: ["event.create"]
       },
       {
         id: "email",
         label: "Email Marketing",
-        path: `${MODULE_URLS.MARKETING}/email`,
+        path: MARKETING_ROUTES.EMAIL,
         permissions: ["event.view"]
       },
       {
         id: "sms",
         label: "SMS Marketing",
-        path: `${MODULE_URLS.MARKETING}/sms`,
+        path: MARKETING_ROUTES.SMS,
         permissions: ["event.view"]
       },
       
