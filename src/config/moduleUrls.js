@@ -1,3 +1,10 @@
+export const DASHBOARD_ROUTES = {
+  HOME: "/home",
+  ANALYTICS: "/analytics",
+  SETTINGS: "/setting",
+  HELP: "/help-center",
+};
+
 export const MODULE_URLS = {
   EVENT: 'https://happnexdev.com/admin/events',
   DASHBOARD:'/admin/dashboard',

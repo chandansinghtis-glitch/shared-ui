@@ -10,20 +10,20 @@ import {
   Wallet,
   Scroll
 } from "lucide-react";
-import { MODULE_URLS } from "./../config/moduleUrls.js";
+import { MODULE_URLS,DASHBOARD_ROUTES } from "./../config/moduleUrls.js";
 
 export const adminSidebarMenuItems = [
   {
     id: "home",
     label: "Home",
-    path: `${MODULE_URLS.DASHBOARD}/home`,
+    path: `${DASHBOARD_ROUTES.home}`,
     icon: Home,
     permissions: ["home.view"],
   },
   {
     id: "analytics",
     label: "Dashboard",
-    path: `${MODULE_URLS.DASHBOARD}/analytics`,
+    path: `${DASHBOARD_ROUTES}.analytics`,
     icon: ChartNoAxesCombined,
     permissions: ["dashboard.view"],
   },
@@ -190,7 +190,7 @@ export const adminSidebarMenuItems = [
   {
     id: "helpcenter",
     label: "Help Center",
-    path: `${MODULE_URLS.DASHBOARD}/help-center`,
+    path: `${DASHBOARD_ROUTES.analytics}`,
     icon: CircleHelp,
     permissions: ["help.view"],
   },
