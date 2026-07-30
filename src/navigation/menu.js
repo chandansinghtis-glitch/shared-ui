@@ -23,7 +23,7 @@ export const adminSidebarMenuItems = [
   {
     id: "analytics",
     label: "Dashboard",
-    path: `${MODULE_URLS.DASHBOARD}/admin/analytics`,
+    path: `${MODULE_URLS.DASHBOARD}/analytics`,
     icon: ChartNoAxesCombined,
     permissions: ["dashboard.view"],
   },
