@@ -15,7 +15,7 @@ export const MODULE_URLS = {
   user: "/admin/users",
   marketing: "/admin/marketing",
   finance: "/admin/finance",
-  reward: "/admin/referal-rewards",
+  reward: "/admin/referral-rewards",
 };
 
 /**
@@ -115,7 +115,7 @@ export const REFERAL_REWARD_ROUTES = {
 
   REWARDS: "/rewards",
 
-  REFERAL_PROMOTER: "/referal-promoter-center",
+  REFERAL_PROMOTER: "/referral-promoter-center",
 };
 
 /**
