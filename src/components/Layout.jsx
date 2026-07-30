@@ -14,6 +14,7 @@ export default function Layout({
   ActiveRoleSwitch,
   OrgRoleSwitch,
   NotificationComponent,
+  current_module
 }) {
   const [expanded, setExpanded] = useState(true);
   const [open, setOpen] = useState(false);
@@ -26,7 +27,7 @@ export default function Layout({
     <div className="flex min-h-screen">
 
       {/* ================= SIDEBAR ================= */}
-      <Sidebar expanded={expanded} user={user} />
+      <Sidebar expanded={expanded} user={user} current_module={current_module} />
 
       {/* ================= MAIN ================= */}
       <div

@@ -29,7 +29,7 @@ const filterMenuByPermissions = (menus, userPermissions) => {
 };
 
 // ================== MenuItems ==================
-function MenuItems({ isOpen, user }) {
+function MenuItems({ isOpen, user, current_module }) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -86,13 +86,13 @@ function MenuItems({ isOpen, user }) {
       return false;
     }
   };
-  const CURRENT_MODULE = "dashboard";
+  
 
   const handleNavigation = (module, path) => {
     if (!path) return;
 
     // Internal navigation (same React app)
-    if (module === CURRENT_MODULE) {
+    if (module === current_module) {
       navigate(path);
       return;
     }
@@ -253,7 +253,7 @@ function MenuItems({ isOpen, user }) {
 }
 
 // ================== Sidebar ==================
-export default function Sidebar({ expanded = true, user }) {
+export default function Sidebar({ expanded = true, user, current_module }) {
 
   const isOpen = expanded;
 
@@ -265,7 +265,7 @@ export default function Sidebar({ expanded = true, user }) {
         style={{ width: isOpen ? 240 : 70 }}
       >
         <div className="py-6">
-          <MenuItems isOpen={isOpen} user={user} />
+          <MenuItems isOpen={isOpen} user={user} current_module={current_module} />
         </div>
       </aside>
 
