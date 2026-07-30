@@ -20,7 +20,7 @@ export const DASHBOARD_ROUTES = {
 // ================= Event Internal Routes =================
 
 export const EVENT_ROUTES = {
-  EVENTS: "/",
+  EVENTS: "/all-events",
 
   CREATE_EVENT: "/eventcreate",
   EDIT_EVENT: (eventId) => `/eventcreate/${eventId}`,
@@ -42,20 +42,20 @@ export const EVENT_ROUTES = {
     `/addon-vendors/details/${vendorId}`,
 };
 export const ORDER_ROUTES = {
-  ORDERS: "/",
+  ORDERS: "/all-orders",
   ORDER_CANCELATION_REQ: "/cacellation-requests",
   ORDER_SUPPORT_CANCELATION_REQ: "/support-cacellation-requests",
   ORDER_SWAP_REQ_LIST: "/swap-requests-list",
 };
 export const USER_ROUTES = {
-  USERS: "/",
+  USERS: "/all-users",
   STAFF: "/staffs",
   ROLES: "/roles",
   ORGANIZATION: "/organizations",
 };
 
 export const FINANCE_ROUTES = {
-  FINANCE: "/",
+  FINANCE: "/finance-data",
 };
 export const REFERAL_REWARD_ROUTES = {
   PARTNERS: "/partners",
