@@ -85,8 +85,12 @@ function MenuItems({ isOpen, user }) {
       return false;
     }
   };
-
   const handleNavigation = (path) => {
+    if (!path) return;
+    navigate(path);
+  };
+
+  const handleNavigationOLD = (path) => {
     if (!path) return;
 
     // if external domain

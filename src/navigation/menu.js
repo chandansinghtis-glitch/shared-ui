@@ -16,14 +16,14 @@ export const adminSidebarMenuItems = [
   {
     id: "home",
     label: "Home",
-    path: `${MODULE_URLS.DASHBOARD}/admin/home`,
+    path: `${MODULE_URLS.DASHBOARD}/home`,
     icon: Home,
     permissions: ["home.view"],
   },
   {
     id: "analytics",
     label: "Dashboard",
-    path: `${MODULE_URLS.DASHBOARD}/admin/dashboard`,
+    path: `${MODULE_URLS.DASHBOARD}/admin/analytics`,
     icon: ChartNoAxesCombined,
     permissions: ["dashboard.view"],
   },
@@ -36,25 +36,25 @@ export const adminSidebarMenuItems = [
       {
         id: "eventcreate",
         label: "Create Event",
-        path: `${MODULE_URLS.EVENT}/admin/eventcreate`,
+        path: `${MODULE_URLS.EVENT}/eventcreate`,
         permissions: ["event.create"]
       },
       {
         id: "eventlist",
         label: "Event List",
-        path: `${MODULE_URLS.EVENT}/admin/events`,
+        path: `${MODULE_URLS.EVENT}`,
         permissions: ["event.view"]
       },
       {
         id: "categories",
         label: "Categories",
-        path: `${MODULE_URLS.EVENT}/admin/event-cats`,
+        path: `${MODULE_URLS.EVENT}/event-cats`,
         permissions: ["event.view"]
       },
       {
         id: "vendors",
         label: "Vendors",
-        path: `${MODULE_URLS.EVENT}/admin/addon-vendors`,
+        path: `${MODULE_URLS.EVENT}/addon-vendors`,
         permissions: ["vendor.view"]
       }
     ],
@@ -68,25 +68,25 @@ export const adminSidebarMenuItems = [
       {
         id: "orderslist",
         label: "All Orders",
-        path: `${MODULE_URLS.ORDER}/admin/orders`,
+        path: `${MODULE_URLS.ORDER}`,
         permissions: ["order.view"]
       },
       {
         id: "cacelationreq",
         label: "Cancelation Requests",
-        path: `${MODULE_URLS.ORDER}/admin/cacellation-requests`,
+        path: `${MODULE_URLS.ORDER}/cacellation-requests`,
         permissions: ["event.view"]
       },
       {
         id: "cacelationreq",
         label: "Approved Requests",
-        path: `${MODULE_URLS.ORDER}/admin/support-cacellation-requests`,
+        path: `${MODULE_URLS.ORDER}/support-cacellation-requests`,
         permissions: ["event.view"]
       },
       {
         id: "swapreq",
         label: "Swap Requests",
-        path: `${MODULE_URLS.EVENT}/admin/swap-requests-list`,
+        path: `${MODULE_URLS.EVENT}/swap-requests-list`,
         permissions: ["event.view"]
       },
     ],
@@ -100,12 +100,12 @@ export const adminSidebarMenuItems = [
       {
         id: "userlist",
         label: "User List",
-        path: `${MODULE_URLS.USER}/admin/users`,
+        path: `${MODULE_URLS.USER}`,
         permissions: ["user.view"]
       },
-      { id: "staffs", label: "Staff", path: `${MODULE_URLS.USER}/admin/staffs`, permissions: ["staff.view"] },
-      { id: "roles", label: "Roles", path: `${MODULE_URLS.USER}/admin/roles`, permissions: ["role.view"] },
-      { id: "organizations", label: "Organizations", path: `${MODULE_URLS.USER}/admin/organizations`, permissions: ["organization.view"] },
+      { id: "staffs", label: "Staff", path: `${MODULE_URLS.USER}/staffs`, permissions: ["staff.view"] },
+      { id: "roles", label: "Roles", path: `${MODULE_URLS.USER}/roles`, permissions: ["role.view"] },
+      { id: "organizations", label: "Organizations", path: `${MODULE_URLS.USER}/organizations`, permissions: ["organization.view"] },
      
       
     ],
@@ -114,7 +114,7 @@ export const adminSidebarMenuItems = [
     id: "finance",
     label: "Finance",
     icon: Scroll,
-     path: `${MODULE_URLS.FINANCE}/admin/finance`,
+     path: `${MODULE_URLS.FINANCE}`,
     permissions: ["setting.manage"],
    
   },
@@ -135,19 +135,19 @@ export const adminSidebarMenuItems = [
       {
         id: "partners",
         label: "Partners",
-        path: `${MODULE_URLS.REWARD}/admin/partners`,
+        path: `${MODULE_URLS.REWARD}/partners`,
         permissions: ["user.view"]
       },
       {
         id: "rewards",
         label: "Rewards/Cashback",
-        path: `${MODULE_URLS.REWARD}/admin/rewards`,
+        path: `${MODULE_URLS.REWARD}/rewards`,
         permissions: ["event.view"]
       },
       {
         id: "referal",
         label: "Referal/Promoter",
-        path: `${MODULE_URLS.REWARD}/admin/referal-promoter-center`,
+        path: `${MODULE_URLS.REWARD}/referal-promoter-center`,
         permissions: ["event.view"]
       },
       
@@ -163,25 +163,25 @@ export const adminSidebarMenuItems = [
       {
         id: "facebook",
         label: "Create Facebook Ad Campaign",
-        path: `${MODULE_URLS.MARKETING}/admin/marketing/facebook`,
+        path: `${MODULE_URLS.MARKETING}/facebook`,
         permissions: ["event.create"]
       },
       {
         id: "facebook",
         label: "Facebook Ad Campaigns",
-        path: `${MODULE_URLS.MARKETING}/admin/marketing/facebook-ads`,
+        path: `${MODULE_URLS.MARKETING}/facebook-ads`,
         permissions: ["event.create"]
       },
       {
         id: "email",
         label: "Email Marketing",
-        path: `${MODULE_URLS.MARKETING}/admin/marketing/email`,
+        path: `${MODULE_URLS.MARKETING}/email`,
         permissions: ["event.view"]
       },
       {
         id: "sms",
         label: "SMS Marketing",
-        path: `${MODULE_URLS.MARKETING}/admin/marketing/sms`,
+        path: `${MODULE_URLS.MARKETING}/sms`,
         permissions: ["event.view"]
       },
       
@@ -190,7 +190,7 @@ export const adminSidebarMenuItems = [
   {
     id: "helpcenter",
     label: "Help Center",
-    path: `${MODULE_URLS.DASHBOARD}/admin/help-center`,
+    path: `${MODULE_URLS.DASHBOARD}/help-center`,
     icon: CircleHelp,
     permissions: ["help.view"],
   },
