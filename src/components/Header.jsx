@@ -34,7 +34,7 @@ export default function Header({
   onLogout,
   onProfileClick,
   logo,
-  logoLink = "/",
+  onLogoClick,
   ActiveRoleSwitch,
   OrgRoleSwitch,
   NotificationComponent,
@@ -92,7 +92,7 @@ export default function Header({
           {logo && (
             <img
               src={logo}
-              onClick={() => navigate(logoLink)}
+              onClick={() => onLogoClick?.()}
               className="w-32 cursor-pointer"
               alt="logo"
             />

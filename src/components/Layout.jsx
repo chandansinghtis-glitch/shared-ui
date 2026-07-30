@@ -10,7 +10,7 @@ export default function Layout({
   onLogout,
   onProfileClick,
   logo,
-  logoLink,
+  onLogoClick,
   ActiveRoleSwitch,
   OrgRoleSwitch,
   NotificationComponent,
@@ -47,7 +47,7 @@ export default function Layout({
           onLogout={onLogout}
           onProfileClick={onProfileClick}
           logo={logo}
-          logoLink={logoLink}
+          onLogoClick={onLogoClick}
           ActiveRoleSwitch={ActiveRoleSwitch}
           OrgRoleSwitch={OrgRoleSwitch}
           NotificationComponent={NotificationComponent}
