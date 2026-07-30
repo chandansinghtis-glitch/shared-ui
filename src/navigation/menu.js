@@ -16,14 +16,14 @@ export const adminSidebarMenuItems = [
   {
     id: "home",
     label: "Home",
-    path: `${DASHBOARD_ROUTES.home}`,
+    path: DASHBOARD_ROUTES.HOME,
     icon: Home,
     permissions: ["home.view"],
   },
   {
     id: "analytics",
     label: "Dashboard",
-    path: `${DASHBOARD_ROUTES}.analytics`,
+    path: DASHBOARD_ROUTES.ANALYTICS,
     icon: ChartNoAxesCombined,
     permissions: ["dashboard.view"],
   },
@@ -190,7 +190,7 @@ export const adminSidebarMenuItems = [
   {
     id: "helpcenter",
     label: "Help Center",
-    path: `${DASHBOARD_ROUTES.analytics}`,
+    path: DASHBOARD_ROUTES.HELP,
     icon: CircleHelp,
     permissions: ["help.view"],
   },
