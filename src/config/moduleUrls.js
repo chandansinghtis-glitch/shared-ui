@@ -1,15 +1,30 @@
-// Cross-module URLs (used to switch between modules)
-export const MODULE_URLS = {
-  EVENT: '/admin/events',
-  DASHBOARD:'/admin/dashboard',
-  USER: '/admin/users',
-  ORDER: '/admin/orders',
-  REWARD: '/admin/referal-rewards',
-  MARKETING: '/admin/marketing',
-  FINANCE: '/admin/finance',
-};
-// ================= Dashboard Internal Routes =================
+/**
+ * ==========================================================
+ * MODULE BASE URLS
+ * Used ONLY when navigating between modules
+ * Example:
+ * Dashboard -> Event
+ * Event -> Orders
+ * ==========================================================
+ */
 
+export const MODULE_URLS = {
+  dashboard: "/admin/dashboard",
+  event: "/admin/events",
+  order: "/admin/orders",
+  user: "/admin/users",
+  marketing: "/admin/marketing",
+  finance: "/admin/finance",
+  reward: "/admin/referal-rewards",
+};
+
+/**
+ * ==========================================================
+ * DASHBOARD ROUTES
+ * Internal routes inside Dashboard module
+ * basename = /admin/dashboard
+ * ==========================================================
+ */
 export const DASHBOARD_ROUTES = {
   HOME: "/home",
   ANALYTICS: "/analytics",
@@ -17,8 +32,12 @@ export const DASHBOARD_ROUTES = {
   HELP: "/help-center",
 };
 
-// ================= Event Internal Routes =================
-
+/**
+ * ==========================================================
+ * EVENT ROUTES
+ * basename = /admin/events
+ * ==========================================================
+ */
 export const EVENT_ROUTES = {
   EVENTS: "/all-events",
 
@@ -41,30 +60,76 @@ export const EVENT_ROUTES = {
   VENDOR_DETAILS: (vendorId) =>
     `/addon-vendors/details/${vendorId}`,
 };
+
+/**
+ * ==========================================================
+ * ORDER ROUTES
+ * basename = /admin/orders
+ * ==========================================================
+ */
 export const ORDER_ROUTES = {
   ORDERS: "/all-orders",
+
   ORDER_CANCELATION_REQ: "/cacellation-requests",
-  ORDER_SUPPORT_CANCELATION_REQ: "/support-cacellation-requests",
+
+  ORDER_SUPPORT_CANCELATION_REQ:
+    "/support-cacellation-requests",
+
   ORDER_SWAP_REQ_LIST: "/swap-requests-list",
 };
+
+/**
+ * ==========================================================
+ * USER ROUTES
+ * basename = /admin/users
+ * ==========================================================
+ */
 export const USER_ROUTES = {
   USERS: "/all-users",
+
   STAFF: "/staffs",
+
   ROLES: "/roles",
-  ORGANIZATION: "/organizations",
+
+  ORGANIZATIONS: "/organizations",
 };
 
+/**
+ * ==========================================================
+ * FINANCE ROUTES
+ * basename = /admin/finance
+ * ==========================================================
+ */
 export const FINANCE_ROUTES = {
-  FINANCE: "/finance-data",
+  DASHBOARD: "/finance-data",
 };
+
+/**
+ * ==========================================================
+ * REFERRAL & REWARD ROUTES
+ * basename = /admin/referal-rewards
+ * ==========================================================
+ */
 export const REFERAL_REWARD_ROUTES = {
   PARTNERS: "/partners",
+
   REWARDS: "/rewards",
+
   REFERAL_PROMOTER: "/referal-promoter-center",
 };
+
+/**
+ * ==========================================================
+ * MARKETING ROUTES
+ * basename = /admin/marketing
+ * ==========================================================
+ */
 export const MARKETING_ROUTES = {
   FACEBOOK: "/facebook",
+
   FACEBOOK_ADS: "/facebook-ads",
+
   EMAIL: "/email",
+
   SMS: "/sms",
 };

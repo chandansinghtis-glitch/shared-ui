@@ -4,6 +4,7 @@ import {
 import { Fragment, useState, useRef, useEffect, useMemo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { adminSidebarMenuItems } from "../navigation/menu";
+import { MODULE_URLS } from "../config/moduleUrls";
 
 // ================== Helper: Filter menu items by permissions ==================
 const filterMenuByPermissions = (menus, userPermissions) => {
@@ -85,9 +86,19 @@ function MenuItems({ isOpen, user }) {
       return false;
     }
   };
-  const handleNavigation = (path) => {
+  const CURRENT_MODULE = "dashboard";
+
+  const handleNavigation = (module, path) => {
     if (!path) return;
-    navigate(path);
+
+    // Internal navigation (same React app)
+    if (module === CURRENT_MODULE) {
+      navigate(path);
+      return;
+    }
+
+    // Cross-module navigation (loads another React app)
+    window.location.href = `${MODULE_URLS[module]}${path}`;
   };
 
   const handleNavigationOLD = (path) => {
@@ -134,24 +145,26 @@ function MenuItems({ isOpen, user }) {
                 }
   `}
               onClick={() => {
-                if (hasSubmenu && isOpen) toggleSubmenu(menuItem.id);
-                else if (!hasSubmenu && menuItem.path) {
-                  handleNavigation(menuItem.path);
+                if (hasSubmenu && isOpen) {
+                  toggleSubmenu(menuItem.id);
+                } else if (!hasSubmenu && menuItem.path) {
+                  handleNavigation(menuItem.module, menuItem.path);
                 }
               }}
             >
+              {/* Tooltip */}
               {!isOpen && (
                 <div className="absolute left-full ml-3 z-50 px-2 py-1 text-xs bg-black text-white rounded shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                   {menuItem.label}
                 </div>
               )}
 
+              {/* Active Indicator */}
               {(isActive(menuItem.path) || activeParent) && (
                 <div className="absolute left-0 top-1 bottom-1 w-1 bg-primary rounded-r-md" />
               )}
-              <div className="flex items-center gap-2">
 
-                {/* ✅ Icon render fix */}
+              <div className="flex items-center gap-2 flex-1">
                 {Icon && <Icon size={18} />}
 
                 <span
@@ -162,11 +175,11 @@ function MenuItems({ isOpen, user }) {
                 >
                   {menuItem.label}
                 </span>
-
               </div>
 
               {hasSubmenu && isOpen && (
                 <button
+                  type="button"
                   onClick={(e) => {
                     e.stopPropagation();
                     toggleSubmenu(menuItem.id);
@@ -174,7 +187,7 @@ function MenuItems({ isOpen, user }) {
                   className="p-1 rounded hover:bg-muted"
                 >
                   <ChevronDown
-                    className={`h-4 w-4 transition-all duration-300 ease-in-out ${isSubmenuOpen ? "rotate-180" : "rotate-0"
+                    className={`h-4 w-4 transition-transform duration-300 ${isSubmenuOpen ? "rotate-180" : ""
                       }`}
                   />
                 </button>
@@ -190,7 +203,8 @@ function MenuItems({ isOpen, user }) {
                 {menuItem.submenus.map(sub => (
                   <div
                     key={sub.id}
-                    onClick={() => handleNavigation(sub.path)}
+                    onClick={() => handleNavigation(sub.module, sub.path)}
+
                     className={`px-2 py-2 rounded-md text-sm cursor-pointer transition-all
   ${isActive(sub.path)
                         ? "bg-primary/10 text-primary font-medium"
@@ -215,7 +229,7 @@ function MenuItems({ isOpen, user }) {
                 {menuItem.submenus.map(sub => (
                   <div
                     key={sub.id}
-                    onClick={() => handleNavigation(sub.path)}
+                    onClick={() => handleNavigation(sub.module, sub.path)}
                     className={`px-2 py-2 rounded-md text-sm cursor-pointer transition-all
                       ${isActive(sub.path)
                         ? "bg-primary/10 text-primary font-medium"
