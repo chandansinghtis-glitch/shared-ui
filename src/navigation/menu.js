@@ -157,13 +157,30 @@ export const adminSidebarMenuItems = [
   },
 
   // ================= Finance =================
+ 
   {
     id: "finance",
     label: "Finance",
-    module: "finance",
-    path: FINANCE_ROUTES.DASHBOARD,
     icon: Scroll,
     permissions: ["setting.manage"],
+
+    submenus: [
+      {
+        id: "invoices",
+        label: "Invoices",
+        module: "finance",
+        path: FINANCE_ROUTES.DASHBOARD,
+        permissions: ["setting.view"],
+      },
+      {
+        id: "payout",
+        label: "Payout",
+        module: "finance",
+        path: EVENT_ROUTES.ORG_ADMIN_PAYOUT,
+        permissions: ["setting.manage"],
+      },
+     
+    ],
   },
 
   // ================= Referral =================

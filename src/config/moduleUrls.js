@@ -59,6 +59,9 @@ export const EVENT_ROUTES = {
 
   VENDOR_DETAILS: (vendorId) =>
     `/addon-vendors/details/${vendorId}`,
+
+
+  ORG_ADMIN_PAYOUT: "/stripe-connect",
 };
 
 /**
