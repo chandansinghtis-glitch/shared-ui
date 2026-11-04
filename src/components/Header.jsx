@@ -21,6 +21,28 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
+/* ================= TOP BAR THEME =================
+ * Happnex blue gradient (same family as the website's front pages).
+ * Change --hx-topbar-gradient to match the website exactly.
+ * The scoped rules keep the buttons modules place in the bar readable
+ * (role switch, organisation switch, notifications) without editing them.
+ */
+const TOPBAR_CSS = `
+.hx-topbar {
+  --hx-topbar-gradient: linear-gradient(90deg, #0D375F 0%, #14528E 45%, #2189ED 100%);
+  background-image: var(--hx-topbar-gradient);
+  color: #fff;
+}
+.hx-topbar .hx-topbar-logo { filter: brightness(0) invert(1); }
+.hx-topbar .text-muted-foreground { color: rgba(255, 255, 255, 0.75); }
+.hx-topbar button:not([role="menuitem"]):hover { background-color: rgba(255, 255, 255, 0.12); }
+/* "Your Tickets" / role switch: white pill on the blue bar */
+.hx-topbar .bg-\\[\\#2189ed\\] { background-color: #fff; color: #14528E; }
+.hx-topbar .bg-\\[\\#2189ed\\]:hover { background-color: #E9F3FD; }
+/* Organisation switch and other muted chips */
+.hx-topbar .bg-muted { background-color: rgba(255, 255, 255, 0.14); border-color: rgba(255, 255, 255, 0.25); color: #fff; }
+`;
+
 /* ================= HELPERS ================= */
 const truncate = (text = "", length = 18) =>
   text.length > length ? text.slice(0, length) + "..." : text;
@@ -59,7 +81,8 @@ export default function Header({
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-lg border-b z-50">
+    <header className="hx-topbar fixed top-0 left-0 right-0 border-b border-white/10 shadow-sm z-50">
+      <style>{TOPBAR_CSS}</style>
       <div className="flex items-center justify-between h-[60px] px-4">
 
         {/* ================= LEFT ================= */}
@@ -70,7 +93,7 @@ export default function Header({
             onClick={() => setOpen(true)}
             size="icon"
             variant="ghost"
-            className="lg:hidden rounded-full hover:bg-muted"
+            className="lg:hidden rounded-full text-white hover:bg-white/10 hover:text-white"
           >
             <AlignJustify className="h-6 w-6" />
           </Button>
@@ -79,7 +102,7 @@ export default function Header({
           <Button
             onClick={toggleSidebar}
             variant="ghost"
-            className="p-2 rounded-md hidden lg:flex"
+            className="p-2 rounded-md hidden lg:flex text-white hover:bg-white/10 hover:text-white"
           >
             <ChevronLeft
               className={`h-5 w-5 transition-transform duration-300 ${
@@ -93,7 +116,7 @@ export default function Header({
             <img
               src={logo}
               onClick={() => onLogoClick?.()}
-              className="w-32 cursor-pointer"
+              className="hx-topbar-logo w-32 cursor-pointer"
               alt="logo"
             />
           )}
@@ -117,7 +140,7 @@ export default function Header({
           ) : (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button size="icon" variant="ghost" className="relative">
+                <Button size="icon" variant="ghost" className="relative text-white hover:bg-white/10 hover:text-white">
                   <Bell className="h-5 w-5" />
                   <span className="absolute top-1 right-1 h-2 w-2 bg-red-500 rounded-full" />
                 </Button>
@@ -137,10 +160,10 @@ export default function Header({
           {/* ================= USER MENU ================= */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button className="flex items-center gap-2 px-2 py-1 rounded-md hover:bg-gray-100">
+              <button className="flex items-center gap-2 px-2 py-1 rounded-md">
 
                 {/* ICON */}
-                <div className="h-9 w-9 flex items-center justify-center rounded-md bg-muted">
+                <div className="h-9 w-9 flex items-center justify-center rounded-md bg-white/15">
                   <User className="h-5 w-5" />
                 </div>
 
