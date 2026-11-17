@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 
@@ -45,10 +46,33 @@ export default function Layout({
   ActiveRoleSwitch,
   OrgRoleSwitch,
   NotificationComponent,
-  current_module
+  current_module,
+
+  // Pages that need the full width (e.g. the event builder): the menu
+  // collapses while one of these paths is open and comes back after.
+  // Path prefixes inside the module, e.g. ["/eventcreate"].
+  collapsedPaths = [],
 }) {
   const [expanded, setExpanded] = useState(true);
   const [open, setOpen] = useState(false);
+
+  const { pathname } = useLocation();
+  const shouldCollapse = collapsedPaths.some(
+    (p) => pathname === p || pathname.startsWith(`${p}/`)
+  );
+  const restoreTo = useRef(null);
+
+  useEffect(() => {
+    if (shouldCollapse) {
+      setExpanded((prev) => {
+        if (restoreTo.current === null) restoreTo.current = prev;
+        return false;
+      });
+    } else if (restoreTo.current !== null) {
+      setExpanded(restoreTo.current);
+      restoreTo.current = null;
+    }
+  }, [shouldCollapse]);
 
   const toggleSidebar = () => {
     setExpanded((prev) => !prev);
